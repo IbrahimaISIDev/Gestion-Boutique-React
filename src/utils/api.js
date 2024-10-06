@@ -1,20 +1,43 @@
-import axios from 'axios';
+// src/utils/api.js
 
-const API_URL = 'http://localhost:3000/api';
+const BASE_URL = 'http://127.0.0.1:4000/api/v1'; 
 
-const api = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
-api.interceptors.request.use((config) => {
+const apiFetch = async (url, options = {}) => {
   const token = localStorage.getItem('token');
+  const headers = {
+    'Content-Type': 'application/json',
+    ...options.headers,
+  };
+
   if (token) {
-    config.headers['Authorization'] = `Bearer ${token}`;
+    headers['Authorization'] = `Bearer ${token}`;
   }
-  return config;
+
+  const response = await fetch(`${BASE_URL}${url}`, {
+    ...options,
+    headers,
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Une erreur s\'est produite');
+  }
+
+  return response.json();
+};
+
+export const login = (credentials) => apiFetch('/login', {
+  method: 'POST',
+  body: JSON.stringify(credentials),
 });
 
-export default api;
+export const logout = () => apiFetch('/logout', {
+  method: 'POST',
+});
+
+export const getCurrentUser = () => apiFetch('/user');
+
+export const refresh = (refreshToken) => apiFetch('/refresh', {
+  method: 'POST',
+  body: JSON.stringify({ refresh_token: refreshToken }),
+});
