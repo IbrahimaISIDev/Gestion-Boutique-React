@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import './dist/output.css'; // Importer le fichier CSS ici
+import './styles/tailwind.css'; // Importer le fichier CSS ici
 import AppRoutes from './Routes';
 
 function App() {

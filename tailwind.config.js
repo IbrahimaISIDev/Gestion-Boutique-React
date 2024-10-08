@@ -1,6 +1,6 @@
 module.exports = {
-    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-    darkMode: false, // ou 'media' ou 'class'
+    content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'], // Change 'purge' to 'content'
+    darkMode: 'media', // or remove this line entirely
     theme: {
         extend: {},
     },
@@ -13,4 +13,3 @@ module.exports = {
         require('@tailwindcss/aspect-ratio'),
     ],
 };
-

@@ -13,7 +13,7 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   
-  const { login: authenticate } = useAuth(); // Utilisez le contexte d'authentification
+  const { login: authenticate } = useAuth(); // Utilisez login
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
